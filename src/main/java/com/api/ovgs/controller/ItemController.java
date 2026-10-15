@@ -2,7 +2,6 @@ package com.api.ovgs.controller;
 
 import com.api.ovgs.dto.ItemReponseDTO;
 import com.api.ovgs.dto.ItemResquestDTO;
-import com.api.ovgs.dto.ItemTotalResponseDTO;
 import com.api.ovgs.entity.Item;
 import com.api.ovgs.service.ItemService;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ public class ItemController {
 
     // Retorna todos os IDs
     @GetMapping
-    public ItemTotalResponseDTO findAll() {
+    public ItemReponseDTO findAll() {
         return itemService.findAll();
     }
 

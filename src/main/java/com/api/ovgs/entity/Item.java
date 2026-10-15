@@ -31,18 +31,18 @@ public class Item {
 	private Double price;
 
 	@Column(nullable = false)
-	private Integer amount;
+	private Integer stock;
 
 	public Item() {}
 
-	public Item(Integer id, String name, String description, String sku, boolean active, Double price, Integer amount) {
+	public Item(Integer id, String name, String description, String sku, boolean active, Double price, Integer stock) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.sku = sku;
 		this.active = active;
 		this.price = price;
-		this.amount = amount;
+		this.stock = stock;
 	}
 
 	public Integer getId() {
@@ -93,11 +93,11 @@ public class Item {
 		this.price = price;
 	}
 
-	public Integer getAmount() {
-		return amount;
+	public Integer getStock() {
+		return stock;
 	}
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 }

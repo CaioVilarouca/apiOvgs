@@ -27,14 +27,9 @@ public class SellOrderService {
 
         Client clientId = clientRepository.findById(sellOrderResquetDTO.getClientId()).get();
 
-        if (sellOrderRepository.existsByClientId(sellOrderResquetDTO.getClientId())) {
-            throw new IllegalArgumentException("Já existe uma ordem de venda para este cliente");
-        }
-
         if (!clientId.isActive()) {
             throw new IllegalArgumentException("O cliente não pode ter um cadastro inativo ["+clientId.isActive()+"]");
         }
-
 
         //Scheduling schedulingId = schedulingService.findById(sellOrderResquetDTO.getSchedulingId()).get();
         //TypeTransport typeTransportId = typeTransportService.findById(sellOrderResquetDTO.getTypeTransportId()).get();

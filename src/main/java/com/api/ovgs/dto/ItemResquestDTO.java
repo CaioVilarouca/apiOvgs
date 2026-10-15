@@ -16,16 +16,16 @@ public class ItemResquestDTO {
 
     private Double price;
 
-    private Integer amount;
+    private Integer stock;
 
-    public ItemResquestDTO(Integer id, String name, String description, String sku, boolean active, Double price, Integer amount) {
+    public ItemResquestDTO(Integer id, String name, String description, String sku, boolean active, Double price, Integer stock) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.sku = sku;
         this.active = active;
         this.price = price;
-        this.amount = amount;
+        this.stock = stock;
     }
 
     public Integer getId() {
@@ -76,15 +76,15 @@ public class ItemResquestDTO {
         this.price = price;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public Item itemEntity() {
-       return new Item(null, this.name,this.description, this.sku, this.active, this.price, this.amount);
+       return new Item(null, this.name,this.description, this.sku, this.active, this.price, this.stock);
     }
 }

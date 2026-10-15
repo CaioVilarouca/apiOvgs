@@ -16,11 +16,8 @@ public class ItemReponseDTO {
 
     private Double price;
 
-    private Integer amount;
+    private Integer stock;
 
-    private Double subtotal;
-
-    private Double total;
 
     public ItemReponseDTO(Item item) {
         this.id = item.getId();
@@ -29,9 +26,8 @@ public class ItemReponseDTO {
         this.sku = item.getSku();
         this.active = item.isActive();
         this.price = item.getPrice();
-        this.amount = item.getAmount();
-        // Calculando subtotal
-        this.subtotal = item.getPrice() * item.getAmount();
+        this.stock = item.getStock();
+
     }
 
     public Integer getId() {
@@ -82,19 +78,11 @@ public class ItemReponseDTO {
         this.price = price;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    public Double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }
