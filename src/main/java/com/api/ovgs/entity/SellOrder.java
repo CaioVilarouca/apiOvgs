@@ -19,6 +19,10 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "cliente_id") // coluna que será usada para realizar a associação entre as tabelas
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "type_transport_id")
+    private TypeTransport typeTransport;
+
     /*
     @ManyToMany // Muitos para muitos
     // private List<Item> item;
@@ -26,18 +30,15 @@ public class SellOrder { // Ordem de venda
     // muitos registros desta entidade podem estar ligados a um mesmo registro de outra entidade
     @JoinColumn(name = "scheduling_id")
     private Scheduling scheduling;
-
-    @ManyToOne
-    @JoinColumn(name = "type_transport_id")
-    private TypeTransport typeTransport;
      */
 
     public SellOrder() {}
 
-    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, Client client) {
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, Client client, TypeTransport typeTransport) {
         this.id = id;
         this.sellOrderStatus = sellOrderStatus;
         this.client = client;
+        this.typeTransport = typeTransport;
     }
 
     public Integer getId() {
@@ -62,5 +63,13 @@ public class SellOrder { // Ordem de venda
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public TypeTransport getTypeTransport() {
+        return typeTransport;
+    }
+
+    public void setTypeTransport(TypeTransport typeTransport) {
+        this.typeTransport = typeTransport;
     }
 }

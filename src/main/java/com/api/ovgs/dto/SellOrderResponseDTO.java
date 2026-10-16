@@ -9,15 +9,15 @@ public class SellOrderResponseDTO {
 
     private SellOrderStatus sellOrderStatus;
 
-    private Integer clientId;
-
     private String clientName;
+
+    private String typeTransportName;
 
     public SellOrderResponseDTO(SellOrder sellOrder) {
         this.id = sellOrder.getId();
         this.sellOrderStatus = sellOrder.getSellOrderStatus();
-        this.clientId = sellOrder.getClient().getId();
         this.clientName = sellOrder.getClient().getName();
+        this.typeTransportName = sellOrder.getTypeTransport().getName();
     }
 
     public Integer getId() {
@@ -36,19 +36,19 @@ public class SellOrderResponseDTO {
         this.sellOrderStatus = sellOrderStatus;
     }
 
-    public Integer getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(Integer clientId) {
-        this.clientId = clientId;
-    }
-
     public String getClientName() {
         return clientName;
     }
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    public String getTypeTransportName() {
+        return typeTransportName;
+    }
+
+    public void setTypeTransportName(String typeTransportName) {
+        this.typeTransportName = typeTransportName;
     }
 }

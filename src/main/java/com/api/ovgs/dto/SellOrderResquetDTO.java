@@ -11,6 +11,9 @@ public class SellOrderResquetDTO {
 
     private Integer clientId;
 
+    private Integer typeTransportId;
+
+
     public Integer getId() {
         return id;
     }
@@ -35,8 +38,16 @@ public class SellOrderResquetDTO {
         this.clientId = clientId;
     }
 
-    public SellOrder toEntity(Client client) {
-        return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), client);
+    public Integer getTypeTransportId() {
+        return typeTransportId;
+    }
+
+    public void setTypeTransportId(Integer typeTransportId) {
+        this.typeTransportId = typeTransportId;
+    }
+
+    public SellOrder toEntity(Client client, TypeTransport typeTransport) {
+        return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), client, typeTransport);
     }
 
 }
