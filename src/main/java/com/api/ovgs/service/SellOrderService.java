@@ -5,6 +5,7 @@ import com.api.ovgs.dto.SellOrderResquetDTO;
 import com.api.ovgs.entity.*;
 import com.api.ovgs.exception.FindByIdException;
 import com.api.ovgs.repository.ClientRepository;
+import com.api.ovgs.repository.ItemRepository;
 import com.api.ovgs.repository.SellOrderRepository;
 import com.api.ovgs.repository.TypeTransportRepository;
 import jakarta.transaction.Transactional;
@@ -19,11 +20,13 @@ public class SellOrderService {
     private final SellOrderRepository sellOrderRepository;
     private final ClientRepository clientRepository;
     private final TypeTransportRepository typeTransportRepository;
+    private final ItemRepository itemRepository;
 
-    public SellOrderService(SellOrderRepository sellOrderRepository, ClientRepository clientRepository, TypeTransportRepository typeTransportRepository) {
+    public SellOrderService(SellOrderRepository sellOrderRepository, ClientRepository clientRepository, TypeTransportRepository typeTransportRepository, ItemRepository itemRepository) {
         this.sellOrderRepository = sellOrderRepository;
         this.clientRepository = clientRepository;
         this.typeTransportRepository = typeTransportRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Transactional
@@ -39,6 +42,8 @@ public class SellOrderService {
             if (!typeTransportId.isActive()) {
                 throw new IllegalArgumentException("O trasporte não pode ter um cadastro inativo [" + typeTransportId.isActive() + "]");
             }
+
+
 
             // Repository recebe a entidade
             SellOrder resquet = sellOrderResquetDTO.toEntity(clientId, typeTransportId);

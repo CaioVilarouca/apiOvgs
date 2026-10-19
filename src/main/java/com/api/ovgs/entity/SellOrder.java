@@ -3,6 +3,9 @@ package com.api.ovgs.entity;
 import com.api.ovgs.domain.SellOrderStatus;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="tb_ordemVenda")
 public class SellOrder { // Ordem de venda
@@ -23,15 +26,6 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
-    /*
-    @ManyToMany // Muitos para muitos
-    // private List<Item> item;
-
-    // muitos registros desta entidade podem estar ligados a um mesmo registro de outra entidade
-    @JoinColumn(name = "scheduling_id")
-    private Scheduling scheduling;
-     */
-
     public SellOrder() {}
 
     public SellOrder(Integer id, SellOrderStatus sellOrderStatus, Client client, TypeTransport typeTransport) {
@@ -39,6 +33,7 @@ public class SellOrder { // Ordem de venda
         this.sellOrderStatus = sellOrderStatus;
         this.client = client;
         this.typeTransport = typeTransport;
+
     }
 
     public Integer getId() {
@@ -72,4 +67,5 @@ public class SellOrder { // Ordem de venda
     public void setTypeTransport(TypeTransport typeTransport) {
         this.typeTransport = typeTransport;
     }
+
 }
