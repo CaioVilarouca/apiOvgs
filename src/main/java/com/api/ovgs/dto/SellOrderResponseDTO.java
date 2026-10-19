@@ -5,7 +5,7 @@ import com.api.ovgs.entity.*;
 
 public class SellOrderResponseDTO {
 
-    private Integer id;
+    private Integer sellOrderId;
 
     private SellOrderStatus sellOrderStatus;
 
@@ -14,18 +14,18 @@ public class SellOrderResponseDTO {
     private String typeTransportName;
 
     public SellOrderResponseDTO(SellOrder sellOrder) {
-        this.id = sellOrder.getId();
+        this.sellOrderId = sellOrder.getId();
         this.sellOrderStatus = sellOrder.getSellOrderStatus();
         this.clientName = sellOrder.getClient().getName();
         this.typeTransportName = sellOrder.getTypeTransport().getName();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getSellOrderId() {
+        return sellOrderId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSellOrderId(Integer sellOrderId) {
+        this.sellOrderId = sellOrderId;
     }
 
     public SellOrderStatus getSellOrderStatus() {
