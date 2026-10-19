@@ -11,6 +11,7 @@ import com.api.ovgs.repository.TypeTransportRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
 
@@ -33,12 +34,20 @@ public class SellOrderService {
             Client clientId = clientRepository.findById(sellOrderResquetDTO.getClientId()).get();
             TypeTransport typeTransportId = typeTransportRepository.findById(sellOrderResquetDTO.getTypeTransportId()).get();
 
+
+            // ---------- CLIENTE ----------
             if (!clientId.isActive()) {
                 throw new IllegalArgumentException("O cliente não pode ter um cadastro inativo [" + clientId.isActive() + "]");
             }
 
+            // ---------- TIPO DE TRASPORTE ----------
             if (!typeTransportId.isActive()) {
                 throw new IllegalArgumentException("O trasporte não pode ter um cadastro inativo [" + typeTransportId.isActive() + "]");
+            }
+
+            // ---------- AGENDAMENTO ----------
+            if (sellOrderResquetDTO.getScheduling().isBefore(LocalDate.now())){
+                throw new IllegalArgumentException("A data de agendamento não pode ser anterior à data atual. Data inválida:" + sellOrderResquetDTO.getScheduling());
             }
 
             // Repository recebe a entidade

@@ -3,8 +3,8 @@ package com.api.ovgs.entity;
 import com.api.ovgs.domain.SellOrderStatus;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name="tb_ordemVenda")
@@ -14,8 +14,12 @@ public class SellOrder { // Ordem de venda
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
     private SellOrderStatus sellOrderStatus;
+
+    @Column(nullable = false)
+    private LocalDate scheduling;
 
     // --------------------------------
     @ManyToOne // Muitos para um
@@ -28,12 +32,12 @@ public class SellOrder { // Ordem de venda
 
     public SellOrder() {}
 
-    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, Client client, TypeTransport typeTransport) {
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport) {
         this.id = id;
         this.sellOrderStatus = sellOrderStatus;
+        this.scheduling = scheduling;
         this.client = client;
         this.typeTransport = typeTransport;
-
     }
 
     public Integer getId() {
@@ -68,4 +72,11 @@ public class SellOrder { // Ordem de venda
         this.typeTransport = typeTransport;
     }
 
+    public LocalDate getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(LocalDate scheduling) {
+        this.scheduling = scheduling;
+    }
 }

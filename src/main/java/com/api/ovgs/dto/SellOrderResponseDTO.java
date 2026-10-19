@@ -2,6 +2,9 @@ package com.api.ovgs.dto;
 
 import com.api.ovgs.domain.SellOrderStatus;
 import com.api.ovgs.entity.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 
 public class SellOrderResponseDTO {
 
@@ -13,11 +16,14 @@ public class SellOrderResponseDTO {
 
     private String typeTransportName;
 
+    private LocalDate scheduling;
+
     public SellOrderResponseDTO(SellOrder sellOrder) {
         this.sellOrderId = sellOrder.getId();
         this.sellOrderStatus = sellOrder.getSellOrderStatus();
         this.clientName = sellOrder.getClient().getName();
         this.typeTransportName = sellOrder.getTypeTransport().getName();
+        this.scheduling = sellOrder.getScheduling();
     }
 
     public Integer getSellOrderId() {
@@ -50,5 +56,13 @@ public class SellOrderResponseDTO {
 
     public void setTypeTransportName(String typeTransportName) {
         this.typeTransportName = typeTransportName;
+    }
+
+    public LocalDate getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(LocalDate scheduling) {
+        this.scheduling = scheduling;
     }
 }
