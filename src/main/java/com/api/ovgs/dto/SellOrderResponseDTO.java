@@ -2,9 +2,9 @@ package com.api.ovgs.dto;
 
 import com.api.ovgs.domain.SellOrderStatus;
 import com.api.ovgs.entity.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class SellOrderResponseDTO {
 
@@ -17,6 +17,7 @@ public class SellOrderResponseDTO {
     private String typeTransportName;
 
     private LocalDate scheduling;
+
 
     public SellOrderResponseDTO(SellOrder sellOrder) {
         this.sellOrderId = sellOrder.getId();

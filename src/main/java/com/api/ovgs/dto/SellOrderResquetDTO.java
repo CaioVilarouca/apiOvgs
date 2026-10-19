@@ -16,9 +16,6 @@ public class SellOrderResquetDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate scheduling;
 
-    private List<ItemAmount> list;
-
-
     public Integer getClientId() {
         return clientId;
     }
@@ -43,15 +40,8 @@ public class SellOrderResquetDTO {
         this.scheduling = scheduling;
     }
 
-    public List<ItemAmount> getList() {
-        return list;
-    }
-
-    public void setList(List<ItemAmount> list) {
-        this.list = list;
-    }
-
     public SellOrder toEntity(Client client, TypeTransport typeTransport) {
-        return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), this.scheduling, client, typeTransport, null);
+       // return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), this.scheduling, client, typeTransport);
+        return null;
     }
 }

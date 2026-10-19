@@ -1,0 +1,3 @@
+2026-10-19 20:46:25.070941-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DROP TABLE [*]FROM TB_ORDEM_VENDA_ITENS"; expected "identifier"; SQL statement:
+DROP TABLE FROM TB_ORDEM_VENDA_ITENS [42001-240]
