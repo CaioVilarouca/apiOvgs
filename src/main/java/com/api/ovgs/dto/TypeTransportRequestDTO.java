@@ -4,22 +4,12 @@ import com.api.ovgs.entity.TypeTransport;
 
 public class TypeTransportRequestDTO {
 
-    private Integer id;
-
     private String name;
 
     private String description;
 
     private boolean active;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
