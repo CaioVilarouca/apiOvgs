@@ -4,21 +4,18 @@ import com.api.ovgs.entity.Client;
 
 public class ClientResquestDTO {
 
-    private Integer id;
-
     private String name;
 
     private String email;
 
     private boolean active;
 
-
-    public boolean isActive() {
-        return active;
+    public String getName() {
+        return name;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -29,20 +26,12 @@ public class ClientResquestDTO {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Client toEntity(){
