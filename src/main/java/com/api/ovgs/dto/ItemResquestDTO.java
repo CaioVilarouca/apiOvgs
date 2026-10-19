@@ -4,8 +4,6 @@ import com.api.ovgs.entity.Item;
 
 public class ItemResquestDTO {
 
-    private Integer id;
-
     private String name;
 
     private String description;
@@ -18,23 +16,6 @@ public class ItemResquestDTO {
 
     private Integer stock;
 
-    public ItemResquestDTO(Integer id, String name, String description, String sku, boolean active, Double price, Integer stock) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.sku = sku;
-        this.active = active;
-        this.price = price;
-        this.stock = stock;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

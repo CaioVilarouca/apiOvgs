@@ -44,8 +44,8 @@ public class ItemService {
     }
 
     // Retorna todos os registros pelo IDs
-    public ItemReponseDTO findAll() {
-        return (ItemReponseDTO) itemRepository.findAll()
+    public List<ItemReponseDTO> findAll() {
+        return itemRepository.findAll()
                 .stream()
                 .map(ItemReponseDTO::new)
                 .toList();

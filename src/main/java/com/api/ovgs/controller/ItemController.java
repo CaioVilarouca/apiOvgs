@@ -6,6 +6,7 @@ import com.api.ovgs.entity.Item;
 import com.api.ovgs.service.ItemService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,9 +27,10 @@ public class ItemController {
 
     // Retorna todos os IDs
     @GetMapping
-    public ItemReponseDTO findAll() {
+    public List<ItemReponseDTO> findAll() {
         return itemService.findAll();
     }
+
 
     // Retorna um ID específico
     @GetMapping("/{id}")
