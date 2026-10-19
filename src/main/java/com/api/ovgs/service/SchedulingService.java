@@ -27,10 +27,4 @@ public class SchedulingService {
         Scheduling scheduling = schedulingResquetDTO.toEntity();
         return new SchedulingReponseDTO(schedulingRepository.save(scheduling));
     }
-
-    /* Pode ou não retorna alguma coisa
-    public Optional<Scheduling> findById(Integer id) {
-        return schedulingRepository.findById(id);
-    }
-     */
 }
