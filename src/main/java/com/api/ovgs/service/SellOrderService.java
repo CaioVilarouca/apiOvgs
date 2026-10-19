@@ -20,13 +20,11 @@ public class SellOrderService {
     private final SellOrderRepository sellOrderRepository;
     private final ClientRepository clientRepository;
     private final TypeTransportRepository typeTransportRepository;
-    private final ItemRepository itemRepository;
 
-    public SellOrderService(SellOrderRepository sellOrderRepository, ClientRepository clientRepository, TypeTransportRepository typeTransportRepository, ItemRepository itemRepository) {
+    public SellOrderService(SellOrderRepository sellOrderRepository, ClientRepository clientRepository, TypeTransportRepository typeTransportRepository) {
         this.sellOrderRepository = sellOrderRepository;
         this.clientRepository = clientRepository;
         this.typeTransportRepository = typeTransportRepository;
-        this.itemRepository = itemRepository;
     }
 
     @Transactional
@@ -42,8 +40,6 @@ public class SellOrderService {
             if (!typeTransportId.isActive()) {
                 throw new IllegalArgumentException("O trasporte não pode ter um cadastro inativo [" + typeTransportId.isActive() + "]");
             }
-
-
 
             // Repository recebe a entidade
             SellOrder resquet = sellOrderResquetDTO.toEntity(clientId, typeTransportId);

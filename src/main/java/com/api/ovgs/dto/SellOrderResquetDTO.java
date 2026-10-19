@@ -3,13 +3,12 @@ package com.api.ovgs.dto;
 import com.api.ovgs.domain.SellOrderStatus;
 import com.api.ovgs.entity.*;
 
-import java.util.List;
-
 public class SellOrderResquetDTO {
 
     private Integer clientId;
 
     private Integer typeTransportId;
+
 
     public Integer getClientId() {
         return clientId;
