@@ -4,6 +4,8 @@ import com.api.ovgs.domain.SellOrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -30,14 +32,18 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
+    @OneToMany
+    private List<ItemAmount> itens = new ArrayList<>();
+
     public SellOrder() {}
 
-    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport) {
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<ItemAmount> itens) {
         this.id = id;
         this.sellOrderStatus = sellOrderStatus;
         this.scheduling = scheduling;
         this.client = client;
         this.typeTransport = typeTransport;
+        this.itens = itens;
     }
 
     public Integer getId() {
@@ -78,5 +84,13 @@ public class SellOrder { // Ordem de venda
 
     public void setScheduling(LocalDate scheduling) {
         this.scheduling = scheduling;
+    }
+
+    public List<ItemAmount> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemAmount> itens) {
+        this.itens = itens;
     }
 }
