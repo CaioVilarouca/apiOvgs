@@ -31,16 +31,15 @@ public class SellOrderService {
     @Transactional
     public SellOrderResponseDTO createSellOrder(SellOrderResquetDTO sellOrderResquetDTO){
         try {
-            Client clientId = clientRepository.findById(sellOrderResquetDTO.getClientId()).get();
-            TypeTransport typeTransportId = typeTransportRepository.findById(sellOrderResquetDTO.getTypeTransportId()).get();
-
 
             // ---------- CLIENTE ----------
+            Client clientId = clientRepository.findById(sellOrderResquetDTO.getClientId()).get();
             if (!clientId.isActive()) {
                 throw new IllegalArgumentException("O cliente não pode ter um cadastro inativo [" + clientId.isActive() + "]");
             }
 
             // ---------- TIPO DE TRASPORTE ----------
+            TypeTransport typeTransportId = typeTransportRepository.findById(sellOrderResquetDTO.getTypeTransportId()).get();
             if (!typeTransportId.isActive()) {
                 throw new IllegalArgumentException("O trasporte não pode ter um cadastro inativo [" + typeTransportId.isActive() + "]");
             }

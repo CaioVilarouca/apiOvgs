@@ -16,7 +16,7 @@ public class SellOrderResquetDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate scheduling;
 
-    private List<ItemMove> itemList;
+    private List<SellOrderItemResquestDTO> itemList;
 
     public Integer getClientId() {
         return clientId;
@@ -42,11 +42,11 @@ public class SellOrderResquetDTO {
         this.scheduling = scheduling;
     }
 
-    public List<ItemMove> getItemList() {
+    public List<SellOrderItemResquestDTO> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<ItemMove> itemList) {
+    public void setItemList(List<SellOrderItemResquestDTO> itemList) {
         this.itemList = itemList;
     }
 
