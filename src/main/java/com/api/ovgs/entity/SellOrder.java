@@ -1,7 +1,6 @@
 package com.api.ovgs.entity;
 
 import com.api.ovgs.domain.SellOrderStatus;
-import com.api.ovgs.dto.SellOrderItemResquestDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -34,11 +33,11 @@ public class SellOrder { // Ordem de venda
     private TypeTransport typeTransport;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Item> itemList = new ArrayList<>();
+    private List<ItemMove> itemList = new ArrayList<>();
 
     public SellOrder() {}
 
-    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<SellOrderItemResquestDTO> itemList) {
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<ItemMove> itemList) {
         this.id = id;
         this.sellOrderStatus = sellOrderStatus;
         this.scheduling = scheduling;
@@ -46,7 +45,6 @@ public class SellOrder { // Ordem de venda
         this.typeTransport = typeTransport;
         this.itemList = itemList;
     }
-
 
     public Integer getId() {
         return id;
@@ -88,11 +86,11 @@ public class SellOrder { // Ordem de venda
         this.scheduling = scheduling;
     }
 
-    public List<Item> getItemList() {
+    public List<ItemMove> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<Item> itemList) {
+    public void setItemList(List<ItemMove> itemList) {
         this.itemList = itemList;
     }
 }
