@@ -32,7 +32,7 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ItemMove> itemList = new ArrayList<>();
 
     public SellOrder() {}

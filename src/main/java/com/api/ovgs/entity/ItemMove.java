@@ -3,24 +3,24 @@ package com.api.ovgs.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="tb_ItemMove")
+@Table(name="tb_ItemMove" +
+        "")
 public class ItemMove {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer amount;
+    private Integer amounts;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+    private Integer itemId;
 
     public ItemMove() {}
 
-    public ItemMove(Integer amount, Item item) {
-        this.amount = amount;
-        this.item = item;
+    public ItemMove(Integer id, Integer amounts, Integer itemId) {
+        this.id = id;
+        this.amounts = amounts;
+        this.itemId = itemId;
     }
 
     public Integer getId() {
@@ -31,19 +31,19 @@ public class ItemMove {
         this.id = id;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getAmounts() {
+        return amounts;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setAmounts(Integer amounts) {
+        this.amounts = amounts;
     }
 
-    public Item getItem() {
-        return item;
+    public Integer getItemId() {
+        return itemId;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
     }
 }

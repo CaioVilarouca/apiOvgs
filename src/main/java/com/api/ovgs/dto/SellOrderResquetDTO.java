@@ -51,6 +51,6 @@ public class SellOrderResquetDTO {
     }
 
     public SellOrder toEntity(Client client, TypeTransport typeTransport) {
-       return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), this.scheduling, client, typeTransport, itemList);
+        return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), this.scheduling, client, typeTransport, itemList);
     }
 }
