@@ -4,7 +4,6 @@ import com.api.ovgs.domain.SellOrderStatus;
 import com.api.ovgs.entity.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class SellOrderResponseDTO {
 

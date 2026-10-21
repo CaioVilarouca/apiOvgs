@@ -32,12 +32,19 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
-   // @OneToMany
+    @OneToMany
+    private List<ItemMove> itemList = new ArrayList<>();
 
     public SellOrder() {}
 
-
-    // FALTA O CONSTRUTOR
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<ItemMove> itemList) {
+        this.id = id;
+        this.sellOrderStatus = sellOrderStatus;
+        this.scheduling = scheduling;
+        this.client = client;
+        this.typeTransport = typeTransport;
+        this.itemList = itemList;
+    }
 
     public Integer getId() {
         return id;
@@ -79,4 +86,11 @@ public class SellOrder { // Ordem de venda
         this.scheduling = scheduling;
     }
 
+    public List<ItemMove> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<ItemMove> itemList) {
+        this.itemList = itemList;
+    }
 }
