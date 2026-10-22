@@ -1,11 +1,8 @@
 package com.api.ovgs.dto;
 
-import com.api.ovgs.domain.SellOrderStatus;
-import com.api.ovgs.entity.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SellOrderResquetDTO {
@@ -51,14 +48,4 @@ public class SellOrderResquetDTO {
         this.itemList = itemList;
     }
 
-    public SellOrder toEntity(Client client, TypeTransport typeTransport) {
-
-        List<Item> items = new ArrayList<>();
-        if (this.itemList != null) {
-            for (SellOrderItemResquestDTO itemDTO : this.itemList) {
-                items.add(itemDTO.toEntity());
-            }
-        }
-        return new SellOrder(null, SellOrderStatus.CRIADO.getKey(), this.scheduling, client, typeTransport, items);
-    }
 }

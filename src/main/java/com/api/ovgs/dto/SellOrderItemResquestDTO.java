@@ -1,10 +1,14 @@
 package com.api.ovgs.dto;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed09ea2 (fix correção do item 100%)
 public class SellOrderItemResquestDTO {
 
     private Integer itemId;
-    private Integer amounts;
 
+    private Integer amounts;
 
 
     public Integer getItemId() {

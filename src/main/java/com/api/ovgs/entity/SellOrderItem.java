@@ -3,9 +3,8 @@ package com.api.ovgs.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="tb_ItemMove" +
-        "")
-public class ItemMove {
+@Table(name="tb_ordemVendaItem")
+public class SellOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +14,9 @@ public class ItemMove {
 
     private Integer itemId;
 
-    public ItemMove() {}
+    public SellOrderItem() {}
 
-    public ItemMove(Integer id, Integer amounts, Integer itemId) {
+    public SellOrderItem(Integer id, Integer amounts, Integer itemId) {
         this.id = id;
         this.amounts = amounts;
         this.itemId = itemId;
