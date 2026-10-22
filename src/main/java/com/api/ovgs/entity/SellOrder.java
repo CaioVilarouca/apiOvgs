@@ -32,11 +32,7 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
-    @OneToMany(
-            mappedBy = "sellOrder",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "sellOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SellOrderItem> itemList = new ArrayList<>();
 
     public SellOrder() {}

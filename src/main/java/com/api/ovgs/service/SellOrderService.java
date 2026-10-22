@@ -38,8 +38,7 @@ public class SellOrderService {
     }
 
     @Transactional
-    public SellOrderResponseDTO createSellOrder(
-            SellOrderResquetDTO dto) {
+    public SellOrderResponseDTO createSellOrder(SellOrderResquetDTO dto) {
 
         if (dto == null || dto.getClientId() == null || dto.getTypeTransportId() == null) {
             throw new IllegalArgumentException("Cliente e transporte são obrigatórios");
@@ -64,15 +63,13 @@ public class SellOrderService {
         }
 
         // ---------- AGENDAMENTO ----------
-        if (dto.getScheduling() == null ||
-                dto.getScheduling().isBefore(LocalDate.now())) {
+        if (dto.getScheduling() == null || dto.getScheduling().isBefore(LocalDate.now())) {
 
             throw new IllegalArgumentException("Data de agendamento inválida");
         }
 
         // ---------- LISTA DE ITENS ----------
-        if (dto.getItemList() == null ||
-                dto.getItemList().isEmpty()) {
+        if (dto.getItemList() == null || dto.getItemList().isEmpty()) {
 
             throw new IllegalArgumentException("A ordem precisa conter pelo menos um item");
         }
