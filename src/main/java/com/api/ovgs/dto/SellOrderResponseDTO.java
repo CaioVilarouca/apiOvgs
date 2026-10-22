@@ -1,22 +1,21 @@
 package com.api.ovgs.dto;
 
 import com.api.ovgs.domain.SellOrderStatus;
-import com.api.ovgs.entity.*;
+import com.api.ovgs.entity.SellOrder;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class SellOrderResponseDTO {
 
     private Integer sellOrderId;
-
     private SellOrderStatus sellOrderStatus;
-
     private String clientName;
-
     private String typeTransportName;
-
     private LocalDate scheduling;
-
+    private List<SellOrderItemResponseDTO> products;
+    private BigDecimal total;
 
     public SellOrderResponseDTO(SellOrder sellOrder) {
         this.sellOrderId = sellOrder.getId();
@@ -24,6 +23,14 @@ public class SellOrderResponseDTO {
         this.clientName = sellOrder.getClient().getName();
         this.typeTransportName = sellOrder.getTypeTransport().getName();
         this.scheduling = sellOrder.getScheduling();
+
+        this.products = sellOrder.getItemList().stream()
+                .map(SellOrderItemResponseDTO::new)
+                .toList();
+
+        this.total = products.stream()
+                .map(SellOrderItemResponseDTO::getSubtotal)
+                .reduce(BigDecimal.ZERO.setScale(2), BigDecimal::add);
     }
 
     public Integer getSellOrderId() {
@@ -64,5 +71,13 @@ public class SellOrderResponseDTO {
 
     public void setScheduling(LocalDate scheduling) {
         this.scheduling = scheduling;
+    }
+
+    public List<SellOrderItemResponseDTO> getProducts() {
+        return products;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
     }
 }
