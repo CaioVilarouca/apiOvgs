@@ -9,6 +9,7 @@ import java.math.RoundingMode;
 /** Dados de cada produto comprado em uma ordem de venda. */
 public class SellOrderItemResponseDTO {
 
+    private final Integer itemId;
     private final String name;
     private final Integer amounts;
     private final BigDecimal unitPrice;
@@ -17,10 +18,16 @@ public class SellOrderItemResponseDTO {
     public SellOrderItemResponseDTO(SellOrderItem sellOrderItem) {
         Item item = sellOrderItem.getItem();
 
+        this.itemId = item.getId();
         this.name = item.getName();
         this.amounts = sellOrderItem.getAmounts();
-        this.unitPrice = BigDecimal.valueOf(item.getPrice()).setScale(2, RoundingMode.HALF_UP);
+        this.unitPrice = BigDecimal.valueOf(item.getPrice())
+                .setScale(2, RoundingMode.HALF_UP);
         this.subtotal = unitPrice.multiply(BigDecimal.valueOf(amounts));
+    }
+
+    public Integer getItemId() {
+        return itemId;
     }
 
     public String getName() {
