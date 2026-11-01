@@ -4,6 +4,7 @@ import com.api.ovgs.dto.ClientResquestDTO;
 import com.api.ovgs.dto.ClientResponseDTO;
 import com.api.ovgs.entity.Client;
 import com.api.ovgs.exception.FindByIdException;
+import com.api.ovgs.exception.RegistrationFailedException;
 import com.api.ovgs.repository.ClientRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,7 +25,7 @@ public class ClientService {
    public ClientResponseDTO clientCreate(@NonNull ClientResquestDTO clientResquestDTO) {
 
        if (clientRepository.existsByEmail(clientResquestDTO.getEmail())) {
-           throw new IllegalArgumentException("E-mail já cadastrado");
+           throw new RegistrationFailedException("E-mail já cadastrado");
        }
 
        if (!clientResquestDTO.isActive()) {
