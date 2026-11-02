@@ -10,20 +10,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="tb_item")
 public class Item {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(nullable = false, length = 150)
 	private String name;
-	
+
 	@Column(length = 255)
 	private String description;
 
 	@Column(unique = true, length = 48, nullable = false)
 	private String sku;
-	
+
 	@Column(nullable = false)
 	private boolean active;
 

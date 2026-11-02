@@ -35,7 +35,7 @@ public class ClientController { // Cliente
     // Buscar por ID específico
     @GetMapping("/{id}")
     public ClientResponseDTO findById(@PathVariable Integer id) {
-      return clientService.findById(id);
+        return clientService.findById(id);
     }
 
 

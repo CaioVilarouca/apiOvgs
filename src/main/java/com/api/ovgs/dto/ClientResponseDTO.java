@@ -51,5 +51,3 @@ public class ClientResponseDTO {
         this.active = active;
     }
 }
-
-

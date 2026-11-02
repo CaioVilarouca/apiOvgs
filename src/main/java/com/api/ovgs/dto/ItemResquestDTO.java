@@ -66,6 +66,6 @@ public class ItemResquestDTO {
     }
 
     public Item itemEntity() {
-       return new Item(null, this.name,this.description, this.sku, this.active, this.price, this.stock);
+        return new Item(null, this.name,this.description, this.sku, this.active, this.price, this.stock);
     }
 }
