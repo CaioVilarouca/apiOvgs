@@ -2,10 +2,9 @@ package com.api.ovgs.service;
 
 import com.api.ovgs.dto.ItemReponseDTO;
 import com.api.ovgs.dto.ItemResquestDTO;
-import com.api.ovgs.entity.Client;
 import com.api.ovgs.entity.Item;
 import com.api.ovgs.exception.RegistrationFailedException;
-import com.api.ovgs.exception.UserNotFoundException;
+import com.api.ovgs.exception.ObjectNotFoundException;
 import com.api.ovgs.repository.ItemRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class ItemService {
             throw new RegistrationFailedException("Código de barra já cadastrado");
         }
 
-        return new ItemReponseDTO(itemRepository.save(itemResquestDTO.itemEntity(true)));
+        return new ItemReponseDTO(itemRepository.save(itemResquestDTO.itemEntity()));
     }
 
     // Buscar um ID
@@ -56,7 +55,7 @@ public class ItemService {
     // Atualizar dados de cliente
     public ItemReponseDTO update(Integer id, ItemResquestDTO itemResquestDTO) {
 
-        Item item = itemRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Item não encontrado. ID= "+ id));
+        Item item = itemRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Item não encontrado. ID= "+ id));
 
         item.setPrice(itemResquestDTO.getPrice());
         item.setStock(item.getStock() + itemResquestDTO.getStock());

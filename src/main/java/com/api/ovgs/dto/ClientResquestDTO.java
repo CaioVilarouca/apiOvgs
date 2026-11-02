@@ -36,8 +36,8 @@ public class ClientResquestDTO {
         this.active = active;
     }
 
-    public Client toEntity(boolean activeTrue){
-        return new Client(null, this.name, this.email, activeTrue);
+    public Client toEntity(){
+        return new Client(null, this.name, this.email, true);
     }
 
 }

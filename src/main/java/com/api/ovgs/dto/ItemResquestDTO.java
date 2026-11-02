@@ -69,7 +69,7 @@ public class ItemResquestDTO {
         this.stock = stock;
     }
 
-    public Item itemEntity(boolean activeTrue) {
-        return new Item(null, this.name,this.description, this.sku, activeTrue, this.price, this.stock);
+    public Item itemEntity() {
+        return new Item(null, this.name,this.description, this.sku, true, this.price, this.stock);
     }
 }
