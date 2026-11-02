@@ -4,17 +4,19 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name ="tb_cliente")
-public class Client { // Cliente
+public class Client {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Key primary
 	@JoinColumn(name ="id")
 	private Integer id;
 
-	@Column(nullable = false, length = 150) // o campo é obrigatório; no banco, ele não pode ser NULL
+	// o campo é obrigatório; no banco, ele não pode ser NULL
+	@Column(nullable = false, length = 150)
 	private String name;
 
-	@Column(length = 150, unique = true) // unique = true: não pode haver dois registros com o mesmo documento
+	// unique = true: não pode haver dois registros com o mesmo documento
+	@Column(length = 150, unique = true)
 	private String email;
 
 	@Column(nullable = false)

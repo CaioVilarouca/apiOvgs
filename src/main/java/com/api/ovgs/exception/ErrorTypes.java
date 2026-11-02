@@ -9,4 +9,8 @@ public final class ErrorTypes {
     public static final String INTERNAL_ERROR = BASE_URL + "/internal-error";
 
     public static final String CONFLICT = BASE_URL + "/conflict";
+
+    public static final String NOT_FOUND = BASE_URL + "/not-found";
+
+    public static final String BAD_REQUEST = BASE_URL + "/bad-request";
 }

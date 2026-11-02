@@ -4,6 +4,7 @@ import com.api.ovgs.dto.TypeTransportRequestDTO;
 import com.api.ovgs.dto.TypeTransportResponseDTO;
 import com.api.ovgs.entity.TypeTransport;
 import com.api.ovgs.service.TypeTransportService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class TypeTransportController { // Tipo de transporte
     @PutMapping("/{id}")
     public TypeTransportResponseDTO update(
             @PathVariable Integer id,
-            @RequestBody TypeTransportRequestDTO typeTransportRequestDTO
+            @Valid  @RequestBody TypeTransportRequestDTO typeTransportRequestDTO
     ) {
         return typeTransportService.update(id, typeTransportRequestDTO);
     }
