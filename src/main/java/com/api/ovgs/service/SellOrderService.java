@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,40 +39,10 @@ public class SellOrderService {
     }
 
     @Transactional
-<<<<<<< HEAD
-    public SellOrderResponseDTO createSellOrder(SellOrderResquetDTO sellOrderResquetDTO){
-        try {
-
-            // ---------- CLIENTE ----------
-            Client clientId = clientRepository.findById(sellOrderResquetDTO.getClientId()).get();
-            if (!clientId.isActive()) {
-                throw new IllegalArgumentException("O cliente não pode ter um cadastro inativo [" + clientId.isActive() + "]");
-            }
-
-            // ---------- TIPO DE TRASPORTE ----------
-            TypeTransport typeTransportId = typeTransportRepository.findById(sellOrderResquetDTO.getTypeTransportId()).get();
-            if (!typeTransportId.isActive()) {
-                throw new IllegalArgumentException("O trasporte não pode ter um cadastro inativo [" + typeTransportId.isActive() + "]");
-            }
-
-            // ---------- AGENDAMENTO ----------
-            if (sellOrderResquetDTO.getScheduling().isBefore(LocalDate.now())){
-                throw new IllegalArgumentException("A data de agendamento não pode ser anterior à data atual. Data inválida:" + sellOrderResquetDTO.getScheduling());
-            }
-
-            // Repository recebe a entidade
-            SellOrder resquet = sellOrderResquetDTO.toEntity(clientId, typeTransportId);
-            // Repository recebe a entidade
-            SellOrder sellOrder = sellOrderRepository.save(resquet);
-            // Conversão Entidade para DTO
-            return new SellOrderResponseDTO(sellOrder);
-=======
-    public SellOrderResponseDTO createSellOrder(
-            SellOrderResquetDTO dto) {
+    public SellOrderResponseDTO createSellOrder(SellOrderResquetDTO dto) {
 
         if (dto == null || dto.getClientId() == null || dto.getTypeTransportId() == null) {
             throw new IllegalArgumentException("Cliente e transporte são obrigatórios");
->>>>>>> ed09ea2 (fix correção do item 100%)
         }
 
         // ---------- CLIENTE ----------
@@ -93,15 +64,13 @@ public class SellOrderService {
         }
 
         // ---------- AGENDAMENTO ----------
-        if (dto.getScheduling() == null ||
-                dto.getScheduling().isBefore(LocalDate.now())) {
+        if (dto.getScheduling() == null || dto.getScheduling().isBefore(LocalDate.now())) {
 
             throw new IllegalArgumentException("Data de agendamento inválida");
         }
 
         // ---------- LISTA DE ITENS ----------
-        if (dto.getItemList() == null ||
-                dto.getItemList().isEmpty()) {
+        if (dto.getItemList() == null || dto.getItemList().isEmpty()) {
 
             throw new IllegalArgumentException("A ordem precisa conter pelo menos um item");
         }
@@ -131,12 +100,13 @@ public class SellOrderService {
             }
         }
 
-        List<SellOrderItem> items = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> requested : requestedQuantities.entrySet()) {
-            Integer itemId = requested.getKey();
-            Integer quantity = requested.getValue();
-            Item item = itemRepository.findById(itemId)
+        // Adquire bloqueios sempre pela ordem crescente dos IDs, diminuindo
+        // o risco de deadlock caso vendas simultâneas tenham os mesmos produtos.
+        Map<Integer, Item> lockedItems = new HashMap<>();
+        for (Integer itemId : requestedQuantities.keySet().stream().sorted().toList()) {
+            Item item = itemRepository.findByIdForUpdate(itemId)
                     .orElseThrow(() -> new FindByIdException("Item não encontrado: " + itemId));
+            Integer quantity = requestedQuantities.get(itemId);
 
             if (!item.isActive()) {
                 throw new IllegalArgumentException("Item inativo: " + item.getName());
@@ -144,6 +114,18 @@ public class SellOrderService {
             if (item.getStock() == null || item.getStock() < quantity) {
                 throw new IllegalArgumentException("Estoque insuficiente para: " + item.getName());
             }
+            lockedItems.put(itemId, item);
+        }
+
+        // Somente após verificar TODOS os itens é feita a baixa do estoque.
+        // Os produtos são entidades gerenciadas pelo JPA; suas alterações são
+        // persistidas no commit da mesma transação que salva a ordem.
+        // Em caso de erro, a transação desfaz tanto a venda quanto as baixas.
+        List<SellOrderItem> items = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> requested : requestedQuantities.entrySet()) {
+            Item item = lockedItems.get(requested.getKey());
+            Integer quantity = requested.getValue();
+            item.setStock(item.getStock() - quantity);
 
             SellOrderItem orderItem = new SellOrderItem();
             orderItem.setItem(item);

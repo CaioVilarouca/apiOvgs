@@ -21,42 +21,42 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-   public ClientResponseDTO clientCreate(@NonNull ClientResquestDTO clientResquestDTO) {
+    public ClientResponseDTO clientCreate(@NonNull ClientResquestDTO clientResquestDTO) {
 
-       if (clientRepository.existsByEmail(clientResquestDTO.getEmail())) {
-           throw new IllegalArgumentException("E-mail já cadastrado");
-       }
+        if (clientRepository.existsByEmail(clientResquestDTO.getEmail())) {
+            throw new IllegalArgumentException("E-mail já cadastrado");
+        }
 
-       if (!clientResquestDTO.isActive()) {
-           throw new IllegalArgumentException("Cadastro do cliente não pode ser criado DESATIVADO");
-       }
+        if (!clientResquestDTO.isActive()) {
+            throw new IllegalArgumentException("Cadastro do cliente não pode ser criado DESATIVADO");
+        }
 
-       try {
-           return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity()));
-       }
-       catch (DataIntegrityViolationException e) {
-           throw new IllegalArgumentException("Não foi possível cadastrar o cliente devido a uma violação de dados");
-       }
-   }
+        try {
+            return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity()));
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Não foi possível cadastrar o cliente devido a uma violação de dados");
+        }
+    }
 
-   // Buscar por ID. Obs: Pode ou não retorna algo
-   public ClientResponseDTO findById(Integer id) {
+    // Buscar por ID. Obs: Pode ou não retorna algo
+    public ClientResponseDTO findById(Integer id) {
 
-       Optional<Client> client = clientRepository.findById(id);
-       if (client.isPresent()) {
-           return new ClientResponseDTO(client.get());
-       } else {
-           throw new FindByIdException("Cliente não encontrado. ID = "+ id);
-       }
-   }
+        Optional<Client> client = clientRepository.findById(id);
+        if (client.isPresent()) {
+            return new ClientResponseDTO(client.get());
+        } else {
+            throw new FindByIdException("Cliente não encontrado. ID = "+ id);
+        }
+    }
 
-   // Retorna todos os registros pelo IDs
-   public List<ClientResponseDTO> findAll() {
+    // Retorna todos os registros pelo IDs
+    public List<ClientResponseDTO> findAll() {
         return clientRepository.findAll()
                 .stream()
                 .map(ClientResponseDTO::new)
                 .toList();
-   }
+    }
 
     // Retorna clientes ativos ou inativos
     public List<ClientResponseDTO> findByActive(boolean active) {

@@ -1,33 +1,29 @@
 package com.api.ovgs.entity;
 
 import jakarta.persistence.*;
-
 @Entity
-@Table(name="tb_ordemVendaItem")
+@Table(name = "tb_ordemVendaItem")
 public class SellOrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private Integer amounts;
 
-    private Integer itemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sell_order_id", nullable = false)
+    private SellOrder sellOrder;
 
     public SellOrderItem() {}
 
-    public SellOrderItem(Integer id, Integer amounts, Integer itemId) {
-        this.id = id;
-        this.amounts = amounts;
-        this.itemId = itemId;
-    }
-
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getAmounts() {
@@ -38,11 +34,19 @@ public class SellOrderItem {
         this.amounts = amounts;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public SellOrder getSellOrder() {
+        return sellOrder;
+    }
+
+    public void setSellOrder(SellOrder sellOrder) {
+        this.sellOrder = sellOrder;
     }
 }

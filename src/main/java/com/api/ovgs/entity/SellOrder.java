@@ -32,11 +32,12 @@ public class SellOrder { // Ordem de venda
     @JoinColumn(name = "type_transport_id")
     private TypeTransport typeTransport;
 
-    private List<Item> itemList = new ArrayList<>();
+    @OneToMany(mappedBy = "sellOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SellOrderItem> itemList = new ArrayList<>();
 
     public SellOrder() {}
 
-    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<Item> itemList) {
+    public SellOrder(Integer id, SellOrderStatus sellOrderStatus, LocalDate scheduling, Client client, TypeTransport typeTransport, List<SellOrderItem> itemList) {
         this.id = id;
         this.sellOrderStatus = sellOrderStatus;
         this.scheduling = scheduling;
@@ -85,11 +86,11 @@ public class SellOrder { // Ordem de venda
         this.scheduling = scheduling;
     }
 
-    public List<Item> getItemList() {
+    public List<SellOrderItem> getItemList() {
         return itemList;
     }
 
-    public void setItemList(List<Item> itemList) {
+    public void setItemList(List<SellOrderItem> itemList) {
         this.itemList = itemList;
     }
 }

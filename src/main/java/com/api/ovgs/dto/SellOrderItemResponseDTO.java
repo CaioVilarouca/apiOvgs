@@ -10,8 +10,11 @@ import java.math.RoundingMode;
 public class SellOrderItemResponseDTO {
 
     private final String name;
+
     private final Integer amounts;
+
     private final BigDecimal unitPrice;
+
     private final BigDecimal subtotal;
 
     public SellOrderItemResponseDTO(SellOrderItem sellOrderItem) {

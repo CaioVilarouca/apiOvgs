@@ -30,7 +30,7 @@ public class TypeTransportController { // Tipo de transporte
     public List<TypeTransportResponseDTO> findAll() {
         return typeTransportService.findAll();
     }
-    
+
     // Retorna um ID específico
     @GetMapping("/{id}")
     public Optional<TypeTransport> findById(@PathVariable Integer id) {
