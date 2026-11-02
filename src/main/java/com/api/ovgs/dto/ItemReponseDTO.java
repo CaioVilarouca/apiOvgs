@@ -26,7 +26,6 @@ public class ItemReponseDTO {
         this.active = item.isActive();
         this.price = item.getPrice();
         this.stock = item.getStock();
-
     }
 
     public Integer getId() {

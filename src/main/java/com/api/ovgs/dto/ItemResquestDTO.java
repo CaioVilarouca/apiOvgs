@@ -1,6 +1,8 @@
 package com.api.ovgs.dto;
 
 import com.api.ovgs.entity.Item;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public class ItemResquestDTO {
 
@@ -10,12 +12,14 @@ public class ItemResquestDTO {
 
     private String sku;
 
-    private boolean active;
+    @NotNull(message = "O campo active é obrigatório. O campo active deve ser true ou false")
+    private Boolean active;
 
+    @Min(value = 1, message = "O produto deve ter preço")
     private Double price;
 
+    @Min(value = 0, message = "O estoque não pode ser negativo")
     private Integer stock;
-
 
     public String getName() {
         return name;
@@ -41,11 +45,11 @@ public class ItemResquestDTO {
         this.sku = sku;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -65,7 +69,7 @@ public class ItemResquestDTO {
         this.stock = stock;
     }
 
-    public Item itemEntity() {
-        return new Item(null, this.name,this.description, this.sku, this.active, this.price, this.stock);
+    public Item itemEntity(boolean activeTrue) {
+        return new Item(null, this.name,this.description, this.sku, activeTrue, this.price, this.stock);
     }
 }
