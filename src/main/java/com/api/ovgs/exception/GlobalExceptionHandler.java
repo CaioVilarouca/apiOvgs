@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     // Cliente
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handleUserNotFoundException(Exception e, HttpServletRequest request) {
         return ApiErrorResponse.simple(
