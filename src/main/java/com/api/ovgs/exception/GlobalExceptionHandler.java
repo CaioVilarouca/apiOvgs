@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     public ApiErrorResponse handleUserNotFoundException(Exception e, HttpServletRequest request) {
         return ApiErrorResponse.simple(
                 ErrorTypes.NOT_FOUND,
-                "Erro usuário não encontrado",
+                "Erro objeto não encontrado",
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 request.getRequestURI()
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
                 ErrorTypes.BAD_REQUEST,
                 "JSON inválido",
                 HttpStatus.BAD_REQUEST.value(),
-                "Confira o formato do JSON e os tipos dos campos. O campo active deve ser true ou false.",
+                "Confira o formato do JSON e os tipos dos campos.",
                 request.getRequestURI()
         );
     }

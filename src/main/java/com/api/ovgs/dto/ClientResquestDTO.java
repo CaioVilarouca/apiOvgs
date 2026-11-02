@@ -9,7 +9,7 @@ public class ClientResquestDTO {
 
     private String email;
 
-    @NotNull(message = "O campo active é obrigatório")
+    @NotNull(message = "O campo active é obrigatório. O campo active deve ser true ou false.")
     private Boolean active;
 
     public String getName() {

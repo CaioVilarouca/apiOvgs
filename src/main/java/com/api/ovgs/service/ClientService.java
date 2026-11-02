@@ -3,12 +3,10 @@ package com.api.ovgs.service;
 import com.api.ovgs.dto.ClientResquestDTO;
 import com.api.ovgs.dto.ClientResponseDTO;
 import com.api.ovgs.entity.Client;
-import com.api.ovgs.exception.FindByIdException;
 import com.api.ovgs.exception.RegistrationFailedException;
 import com.api.ovgs.exception.UserNotFoundException;
 import com.api.ovgs.repository.ClientRepository;
 import org.jspecify.annotations.NonNull;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +28,7 @@ public class ClientService {
             throw new RegistrationFailedException("E-mail já cadastrado");
         }
 
-        boolean activeTrue = true;
-        return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity(activeTrue)));
+        return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity(true)));
     }
 
     // Buscar por ID. Obs: Pode ou não retorna algo
@@ -54,7 +51,7 @@ public class ClientService {
                 .toList();
     }
 
-    // Retorna um cliente específico pelo ID [ATIVOS]
+    // Retorna um cliente específico pelo ID
     public List<ClientResponseDTO> findByActive(boolean active) {
 
         return clientRepository.findByActive(active)
@@ -66,7 +63,7 @@ public class ClientService {
     // Atualizar dados de cliente
     public ClientResponseDTO update(Integer id, ClientResquestDTO clientResquestDTO) {
 
-        Client client = clientRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado. ID ="+ id));
+        Client client = clientRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado. ID= "+ id));
 
         client.setName(clientResquestDTO.getName());
         client.setEmail(clientResquestDTO.getEmail());
