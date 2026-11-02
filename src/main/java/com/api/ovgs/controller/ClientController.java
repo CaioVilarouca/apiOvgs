@@ -3,13 +3,14 @@ package com.api.ovgs.controller;
 import com.api.ovgs.dto.ClientResquestDTO;
 import com.api.ovgs.dto.ClientResponseDTO;
 import com.api.ovgs.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/client")
-public class ClientController { // Cliente
+public class ClientController {
 
     private final ClientService clientService;
 
@@ -23,7 +24,7 @@ public class ClientController { // Cliente
         return clientService.clientCreate(clientResquestDTO);
     }
 
-    // Retorna todos os IDs [ATIVOS] e não [Ñ ATIVOS]
+    // Retorna todos os IDs [ATIVOS] e não [Ñ ATIVOS] ex: /clients?active=true ou false
     @GetMapping
     public List<ClientResponseDTO> findAll(@RequestParam(required = false) Boolean active) {
         if (active == null) {
@@ -43,8 +44,8 @@ public class ClientController { // Cliente
     @PutMapping("/{id}")
     public ClientResponseDTO update(
             @PathVariable Integer id,
-            @RequestBody ClientResquestDTO clientResquestDTO
-    ) {
+            @Valid @RequestBody ClientResquestDTO clientResquestDTO) {
+
         return clientService.update(id, clientResquestDTO);
     }
 }

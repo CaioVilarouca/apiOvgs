@@ -4,6 +4,8 @@ import com.api.ovgs.dto.ClientResquestDTO;
 import com.api.ovgs.dto.ClientResponseDTO;
 import com.api.ovgs.entity.Client;
 import com.api.ovgs.exception.FindByIdException;
+import com.api.ovgs.exception.RegistrationFailedException;
+import com.api.ovgs.exception.UserNotFoundException;
 import com.api.ovgs.repository.ClientRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,22 +23,15 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
+    // Criar um novo cliente
     public ClientResponseDTO clientCreate(@NonNull ClientResquestDTO clientResquestDTO) {
 
         if (clientRepository.existsByEmail(clientResquestDTO.getEmail())) {
-            throw new IllegalArgumentException("E-mail já cadastrado");
+            throw new RegistrationFailedException("E-mail já cadastrado");
         }
 
-        if (!clientResquestDTO.isActive()) {
-            throw new IllegalArgumentException("Cadastro do cliente não pode ser criado DESATIVADO");
-        }
-
-        try {
-            return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity()));
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new IllegalArgumentException("Não foi possível cadastrar o cliente devido a uma violação de dados");
-        }
+        boolean activeTrue = true;
+        return new ClientResponseDTO(clientRepository.save(clientResquestDTO.toEntity(activeTrue)));
     }
 
     // Buscar por ID. Obs: Pode ou não retorna algo
@@ -46,20 +41,22 @@ public class ClientService {
         if (client.isPresent()) {
             return new ClientResponseDTO(client.get());
         } else {
-            throw new FindByIdException("Cliente não encontrado. ID = "+ id);
+            throw new UserNotFoundException("Usuário não encontrado. ID = "+ id);
         }
     }
 
     // Retorna todos os registros pelo IDs
     public List<ClientResponseDTO> findAll() {
+
         return clientRepository.findAll()
                 .stream()
                 .map(ClientResponseDTO::new)
                 .toList();
     }
 
-    // Retorna clientes ativos ou inativos
+    // Retorna um cliente específico pelo ID [ATIVOS]
     public List<ClientResponseDTO> findByActive(boolean active) {
+
         return clientRepository.findByActive(active)
                 .stream()
                 .map(ClientResponseDTO::new)
@@ -69,11 +66,11 @@ public class ClientService {
     // Atualizar dados de cliente
     public ClientResponseDTO update(Integer id, ClientResquestDTO clientResquestDTO) {
 
-        Client client = clientRepository.findById(id).orElseThrow(() -> new FindByIdException("Cliente não encontrado ID= "+id));
+        Client client = clientRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuário não encontrado. ID ="+ id));
 
         client.setName(clientResquestDTO.getName());
         client.setEmail(clientResquestDTO.getEmail());
-        client.setActive(clientResquestDTO.isActive());
+        client.setActive(clientResquestDTO.getActive());
 
         Client clientUpdate = clientRepository.save(client);
         return new ClientResponseDTO(clientUpdate);
