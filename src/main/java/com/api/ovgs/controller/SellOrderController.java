@@ -3,6 +3,7 @@ package com.api.ovgs.controller;
 import com.api.ovgs.dto.SellOrderResquetDTO;
 import com.api.ovgs.dto.SellOrderResponseDTO;
 import com.api.ovgs.service.SellOrderService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/sellOrder")
-public class SellOrderController { // Ordem de venda
+public class SellOrderController {
 
     private final SellOrderService sellOrderService;
 
@@ -20,7 +21,7 @@ public class SellOrderController { // Ordem de venda
 
     // Criar uma ordem de venda
     @PostMapping
-    public SellOrderResponseDTO create(@RequestBody SellOrderResquetDTO sellOrderResquetDTO){
+    public SellOrderResponseDTO create(@Valid @RequestBody SellOrderResquetDTO sellOrderResquetDTO){
         return sellOrderService.createSellOrder(sellOrderResquetDTO);
     }
 }

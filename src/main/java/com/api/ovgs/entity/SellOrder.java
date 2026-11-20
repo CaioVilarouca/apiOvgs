@@ -16,12 +16,12 @@ public class SellOrder { // Ordem de venda
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
+    private LocalDate scheduling;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private SellOrderStatus sellOrderStatus;
-
-    @Column(nullable = false)
-    private LocalDate scheduling;
 
     // --------------------------------
     @ManyToOne // Muitos para um
@@ -54,6 +54,14 @@ public class SellOrder { // Ordem de venda
         this.id = id;
     }
 
+    public LocalDate getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(LocalDate scheduling) {
+        this.scheduling = scheduling;
+    }
+
     public SellOrderStatus getSellOrderStatus() {
         return sellOrderStatus;
     }
@@ -76,14 +84,6 @@ public class SellOrder { // Ordem de venda
 
     public void setTypeTransport(TypeTransport typeTransport) {
         this.typeTransport = typeTransport;
-    }
-
-    public LocalDate getScheduling() {
-        return scheduling;
-    }
-
-    public void setScheduling(LocalDate scheduling) {
-        this.scheduling = scheduling;
     }
 
     public List<SellOrderItem> getItemList() {

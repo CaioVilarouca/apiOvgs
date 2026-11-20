@@ -1,20 +1,44 @@
 package com.api.ovgs.dto;
 
+import com.api.ovgs.domain.SellOrderStatus;
+import com.api.ovgs.entity.Client;
+import com.api.ovgs.entity.TypeTransport;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class SellOrderResquetDTO {
 
-    private Integer clientId;
-
-    private Integer typeTransportId;
-
+    @NotNull(message = "O campo scheduling é obrigatório. O campo scheduling deve ser 'DD/MM/YYYY'")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate scheduling;
 
-    private List<SellOrderItemResquestDTO> itemList;
+    private SellOrderStatus sellOrderStatus;
+
+    @NotNull(message = "O campo clientId é obrigatório")
+    private Integer clientId;
+
+    @NotNull(message = "O campo typeTransportId é obrigatório")
+    private Integer typeTransportId;
+
+
+    public LocalDate getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(LocalDate scheduling) {
+        this.scheduling = scheduling;
+    }
+
+    public SellOrderStatus getSellOrderStatus() {
+        return sellOrderStatus;
+    }
+
+    public void setSellOrderStatus(SellOrderStatus sellOrderStatus) {
+        this.sellOrderStatus = sellOrderStatus;
+    }
 
     public Integer getClientId() {
         return clientId;
@@ -32,13 +56,8 @@ public class SellOrderResquetDTO {
         this.typeTransportId = typeTransportId;
     }
 
-    public LocalDate getScheduling() {
-        return scheduling;
-    }
+    private List<SellOrderItemResquestDTO> itemList;
 
-    public void setScheduling(LocalDate scheduling) {
-        this.scheduling = scheduling;
-    }
 
     public List<SellOrderItemResquestDTO> getItemList() {
         return itemList;
@@ -47,5 +66,4 @@ public class SellOrderResquetDTO {
     public void setItemList(List<SellOrderItemResquestDTO> itemList) {
         this.itemList = itemList;
     }
-
 }

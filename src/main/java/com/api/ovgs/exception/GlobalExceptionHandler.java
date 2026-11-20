@@ -42,6 +42,22 @@ public class GlobalExceptionHandler {
         );
     }
 
+    // Bad Request - Regras de negócio
+    @ExceptionHandler(BusinessRuleException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResponse handleBusinessRuleException(
+            BusinessRuleException e,
+            HttpServletRequest request) {
+
+        return ApiErrorResponse.simple(
+                ErrorTypes.BAD_REQUEST,
+                "Regra de negócio inválida",
+                HttpStatus.BAD_REQUEST.value(),
+                e.getMessage(),
+                request.getRequestURI()
+        );
+    }
+
     // Bad-Request
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
