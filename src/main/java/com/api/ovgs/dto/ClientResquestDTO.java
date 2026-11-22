@@ -1,6 +1,7 @@
 package com.api.ovgs.dto;
 
 import com.api.ovgs.entity.Client;
+import jakarta.validation.constraints.NotNull;
 
 public class ClientResquestDTO {
 
@@ -8,7 +9,8 @@ public class ClientResquestDTO {
 
     private String email;
 
-    private boolean active;
+    @NotNull(message = "O campo active é obrigatório. O campo active deve ser true ou false.")
+    private Boolean active;
 
     public String getName() {
         return name;
@@ -26,15 +28,16 @@ public class ClientResquestDTO {
         this.email = email;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
     public Client toEntity(){
-        return new Client(null, this.name, this.email, this.active);
+        return new Client(null, this.name, this.email, true);
     }
+
 }

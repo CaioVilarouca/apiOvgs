@@ -1,6 +1,7 @@
 package com.api.ovgs.dto;
 
 import com.api.ovgs.entity.TypeTransport;
+import jakarta.validation.constraints.NotNull;
 
 public class TypeTransportRequestDTO {
 
@@ -8,8 +9,8 @@ public class TypeTransportRequestDTO {
 
     private String description;
 
-    private boolean active;
-
+    @NotNull(message = "O campo active é obrigatório. O campo active deve ser true ou false")
+    private Boolean active;
 
     public String getName() {
         return name;
@@ -27,15 +28,15 @@ public class TypeTransportRequestDTO {
         this.description = description;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
     public TypeTransport toEntity() {
-        return new TypeTransport(null, this.name, this.description, this.active);
+        return new TypeTransport(null, this.name, this.description, true);
     }
 }
